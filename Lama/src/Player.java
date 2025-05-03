@@ -1,4 +1,4 @@
-package PLayer;
+package Player;
 
 public class Player {
     private String name;
@@ -23,9 +23,11 @@ public class Player {
         return this.name;
     }
 
-    public void addWin(){
+    public void newGame(){
         this.wins++;
     }
 
-
+    public int getWins(){
+        return this.wins;
+    }
 }
