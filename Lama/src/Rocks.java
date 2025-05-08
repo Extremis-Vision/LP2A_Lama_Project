@@ -24,6 +24,9 @@ public class Rocks {
         score += rock.getValue();
     }
 
+    public int getValue() {
+        return score;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
