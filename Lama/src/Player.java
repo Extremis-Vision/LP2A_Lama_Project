@@ -1,26 +1,18 @@
 package Player;
+import User.User;
 
-public class Player {
-    private String name;
+public class Player extends User {
     private int wins;
 
-    public Player(String name){
-        this.name = name;
+    public Player(String name) {
+        super(name);
     }
 
     public String toString() {
         return "Player{" +
-                "name='" + name + '\'' +
-                ", wins=" + wins +
+                "name='" + super.name + '\'' +
+                ", wins=" + super.wins +
                 '}';
-    }
-
-    public void changeName(String name) {
-        this.name = name;
-    }
-
-    public String getName(){
-        return this.name;
     }
 
     public void newGame(){

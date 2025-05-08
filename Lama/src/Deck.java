@@ -4,23 +4,9 @@ import java.util.List;
 import Card.Card;
 
 public class Deck {
-    List<Card> deck = new ArrayList<>();
-
+    protected List<Card> deck = new ArrayList<>();
     public Deck() {
-        this(false);
-    }
 
-    public Deck(boolean true_false){
-        if (true_false){
-            for (int diffCard = 1; diffCard <= 7; diffCard++) {
-                for (int numberCard = 1; numberCard <= 8; numberCard++){
-                    if( diffCard == 7){
-                        diffCard = 10;
-                    }
-                    deck.add(new Card(diffCard));
-                }
-            }
-        }
     }
 
     public Card getCard(){
