@@ -6,6 +6,9 @@ import Card.Card;
 public class Deck {
     List<Card> deck = new ArrayList<>();
 
+    public Deck() {
+        this(false);
+    }
 
     public Deck(boolean true_false){
         if (true_false){
@@ -20,8 +23,20 @@ public class Deck {
         }
     }
 
-    public List<Card> getCards(){
-        return this.deck;
+    public Card getCard(){
+        if (deck.isEmpty()) {
+            return null; // ou lancer une exception personnalisée
+        }
+        return deck.removeFirst();
+    }
+
+    public void shuffleDeck(){
+        List<Card> shuffledDeck = new ArrayList<>();
+        while (!deck.isEmpty()) {
+            int randomIndex = (int) (Math.random() * deck.size());
+            shuffledDeck.add(deck.remove(randomIndex));
+        }
+        deck = shuffledDeck;
     }
 
     public void addCard(Card card){
@@ -33,7 +48,7 @@ public class Deck {
         StringBuilder sb = new StringBuilder();
         sb.append("Deck{deck=");
         for (Card card : deck) {
-            sb.append(card).append(", ");
+            sb.append(card).append(", \n");
         }
         if (!deck.isEmpty()) {
             // Enlever la dernière virgule et espace
