@@ -5,9 +5,38 @@ public class Card {
     private String name;
     private String PathtoImage;
 
-    public Card(int value, String name) {
-        this.value = value;
-        this.name = name;
+    public Card(int value) {
+        if (value == 1){
+            this.value = value;
+            this.name = "One";
+        }
+        else if (value == 2){
+            this.value = value;
+            this.name = "Two";
+        }
+        else if (value == 3){
+            this.value = value;
+            this.name = "Three";
+        }
+        else if (value == 4){
+            this.value = value;
+            this.name = "Four";
+        }
+        else if (value == 5){
+            this.value = value;
+            this.name = "Five";
+        }
+        else if (value == 6){
+            this.value = value;
+            this.name = "Six";
+        }
+        else if (value == 10){
+            this.value = 10;
+            this.name = "llama";
+        }
+        else {
+            System.out.println("Error");
+        }
     }
 
     // Getter pour value
