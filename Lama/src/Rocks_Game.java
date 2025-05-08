@@ -9,10 +9,10 @@ public class Rocks_Game extends Rocks {
     public Rocks_Game() {
         super();
         for (int rockWhite = 1; rockWhite <= 50; rockWhite++) {
-            rocks.add(new Rock("white"));
+            this.addRock(new Rock("white"));
         }
         for (int rockBlack = 1; rockBlack <= 20; rockBlack++) {
-            rocks.add(new Rock("black"));
+            this.addRock(new Rock("black"));
         }
     }
 }
