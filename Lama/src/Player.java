@@ -1,25 +1,31 @@
 package Player;
 import User.User;
+import Deck.Deck;
+import Rocks.Rocks;
 
 public class Player extends User {
-    private int wins;
+    protected Deck deck;
+    protected Rocks rocks;
 
     public Player(String name) {
         super(name);
+        this.deck = new Deck();
+        this.rocks = new Rocks();
     }
 
     public String toString() {
         return "Player{" +
                 "name='" + super.name + '\'' +
-                ", wins=" + super.wins +
+                ", deck=" + deck +
+                ", rocks=" + rocks +
                 '}';
     }
 
-    public void newGame(){
-        this.wins++;
+    public Deck getDeck() {
+        return deck;
     }
 
-    public int getWins(){
-        return this.wins;
+    public Rocks getRocks() {
+        return rocks;
     }
 }

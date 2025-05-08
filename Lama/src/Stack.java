@@ -1,7 +1,20 @@
 package Stack;
 import Deck.Deck;
+import Card.Card;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Stack extends Deck{
+    public void shuffleDeck(){
+        List<Card> shuffledDeck = new ArrayList<>();
+        while (!deck.isEmpty()) {
+            int randomIndex = (int) (Math.random() * deck.size());
+            shuffledDeck.add(deck.remove(randomIndex));
+        }
+        deck = shuffledDeck;
+    }
+
     public Stack(){
         super();
         for (int diffCard = 1; diffCard <= 7; diffCard++) {
@@ -9,8 +22,10 @@ public class Stack extends Deck{
                 if( diffCard == 7){
                     diffCard = 10;
                 }
-                deck.add(new Card.Card(diffCard));
+                deck.add(new Card(diffCard));
             }
         }
+
+        this.shuffleDeck();
     }
 }

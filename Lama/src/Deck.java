@@ -16,15 +16,6 @@ public class Deck {
         return deck.removeFirst();
     }
 
-    public void shuffleDeck(){
-        List<Card> shuffledDeck = new ArrayList<>();
-        while (!deck.isEmpty()) {
-            int randomIndex = (int) (Math.random() * deck.size());
-            shuffledDeck.add(deck.remove(randomIndex));
-        }
-        deck = shuffledDeck;
-    }
-
     public void addCard(Card card){
         deck.add(card);
     }

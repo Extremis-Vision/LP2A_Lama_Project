@@ -22,4 +22,12 @@ public class User {
     public String getName(){
         return this.name;
     }
+
+    public int getWins(){
+        return this.wins;
+    }
+
+    public void addWin(){
+        this.wins += 1;
+    }
 }
