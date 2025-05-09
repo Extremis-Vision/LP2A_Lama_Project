@@ -6,14 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Stack extends Deck{
-    public void shuffleDeck(){
-        List<Card> shuffledDeck = new ArrayList<>();
-        while (!deck.isEmpty()) {
-            int randomIndex = (int) (Math.random() * deck.size());
-            shuffledDeck.add(deck.remove(randomIndex));
-        }
-        deck = shuffledDeck;
-    }
 
     public Stack(){
         super();
@@ -26,6 +18,6 @@ public class Stack extends Deck{
             }
         }
 
-        this.shuffleDeck();
+        this.shuffle();
     }
 }
