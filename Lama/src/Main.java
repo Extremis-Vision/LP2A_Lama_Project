@@ -1,19 +1,18 @@
-package Card;
-
 import Player.Player;
 import Rocks_Game.Rocks_Game;
 import Stack.Stack;
 import Deck.Deck;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Card.Card;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<Player> players_list = new ArrayList<>();
         // Création des joueurs
+        players_list.add(new Bot("Bob",1));
         players_list.add(new Player("Alice"));
-        players_list.add(new Player("Bob"));
-        players_list.add(new Player("Charlie"));
+        players_list.add(new Bot("Charlie",1));
 
         boolean gameOver = false;
         Player loser = null;
@@ -74,34 +73,50 @@ public class Main {
         while (!isFinished(players_list, currentDeck)) {
             for (Player player : players_game) {
                 boolean player_played = false;
-                while (player_played == false) {
-                    System.out.println("\n" + player.getName() + ", voici votre deck :");
-                    System.out.println(player.getDeck()); // Affiche le deck du joueur
+                String input = new String();
 
-                    System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
-                    System.out.println("Actions : Poser carte (P), Piocher (PC), Quitter (Q)");
-                    String input = sc.nextLine().toUpperCase();
+
+                while (player_played == false) {
+                    if (player instanceof Bot) {
+                        input = ((Bot) player).chooseAction(currentDeck,pioche);
+                    }
+                    else {
+                        System.out.println("\n" + player.getName() + ", voici votre deck :");
+                        System.out.println(player.getDeck()); // Affiche le deck du joueur
+
+                        System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
+                        System.out.println("Actions : Poser carte (P), Piocher (PC), Quitter (Q)");
+                        input = sc.nextLine().toUpperCase();
+
+                    }
 
                     switch (input) {
                         case "P":
-                            System.out.println("Index de carte à jouer (0 à " + (player.getDeck().getDeckSize() - 1) + "):");
-                            int index = sc.nextInt();
-                            sc.nextLine();
-
-                            if (index >= 0 && index < player.getDeck().getDeckSize()) {
-                                Card selected = player.getDeck().getCard(index);
-                                if (selected.getValue() >= currentDeck.getLastCard().getValue() || (selected.getValue() == 1 && currentDeck.getLastCard().getValue() == 10)) {
-                                    currentDeck.addCard(selected); // Ajoute la carte au deck courant
-                                    player.getDeck().placeCard(index); // Supprime la carte du deck du joueur
-
-                                    player_played = true;
-                                } else {
-                                    System.out.println("Carte non valide !");
-                                }
-                            } else {
-                                System.out.println("Index invalide.");
+                            if (player instanceof Bot) {
+                                int bot_play_index = ((Bot) player).getPlayableCard(currentDeck.getLastCard());
+                                currentDeck.addCard(player.getDeck().placeCard(bot_play_index));
+                                player_played = true;
+                                break;
                             }
-                            break;
+                            else {
+                                System.out.println("Index de carte à jouer (0 à " + (player.getDeck().getDeckSize() - 1) + "):");
+                                int index = sc.nextInt();
+                                sc.nextLine();
+
+                                if (index >= 0 && index < player.getDeck().getDeckSize()) {
+                                    Card selected = player.getDeck().getCard(index);
+                                    if (selected.getValue() >= currentDeck.getLastCard().getValue() || (selected.getValue() == 1 && currentDeck.getLastCard().getValue() == 10)) {
+                                        currentDeck.addCard(selected); // Ajoute la carte au deck courant
+                                        player.getDeck().placeCard(index); // Supprime la carte du deck du joueur
+                                        player_played = true;
+                                    } else {
+                                        System.out.println("Carte non valide !");
+                                    }
+                                } else {
+                                    System.out.println("Index invalide.");
+                                }
+                                break;
+                            }
 
                         case "PC":
                             if (!pioche.isEmpty()) {

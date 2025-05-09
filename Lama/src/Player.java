@@ -61,7 +61,7 @@ public class Player extends User {
     public boolean hasPlayableCard(Card currentCard) {
         for (int i = 0; i < deck.getDeckSize(); i++) {
             Card card = deck.getCard(i);
-            if (card.getValue() >= currentCard.getValue()) {
+            if ((card.getValue() >= currentCard.getValue()) || (card.getValue() == 1 && currentCard.getValue() == 10) || (card.getValue() == 10 && currentCard.getValue() == 10) || (card.getValue() == 6 && currentCard.getValue() == 10)) {
                 return true;
             }
         }
