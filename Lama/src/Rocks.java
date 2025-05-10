@@ -1,18 +1,28 @@
 package Rocks;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import Rock.Rock;
 
 public class Rocks {
-    private HashMap<Integer, Rock> rocks;
+    private List<Rock> rocks;
     private int score;
 
     public Rocks() {
-        rocks = new HashMap<>();
+        rocks =  new ArrayList<>();
         score = 0;
     }
 
     public Rock getRocks(int value) {
-        return rocks.remove(value);
+        for (int i=0; i < rocks.size(); i++) {
+            if (rocks.get(i).getValue() == value) {
+                score -= value;
+                return rocks.remove(i);
+            }
+        }
+
+        return null;
     }
 
     public void addRock(Rock rock) {
@@ -20,7 +30,7 @@ public class Rocks {
             System.out.println("Rock est null, aucun ajout effectué.");
             return;
         }
-        rocks.put(rock.getValue(),rock);
+        rocks.add(rock);
         score += rock.getValue();
     }
 
@@ -32,8 +42,8 @@ public class Rocks {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Rocks :");
-        for (Rock rock : rocks.values()) {
+        sb.append("Deck{ size :").append(this.rocks.size()).append(",deck=\n");
+        for (Rock rock : this.rocks) {
             sb.append(rock).append(", \n");
         }
         if (!rocks.isEmpty()) {

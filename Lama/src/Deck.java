@@ -20,6 +20,7 @@ public class Deck {
     }
 
     public Card placeCard(int indice) {
+        System.out.println("PlaceCard : " + indice);
         if (deck.isEmpty()) {
             return null; // ou lancer une exception personnalisée
         }
@@ -56,6 +57,30 @@ public class Deck {
     public void removeCard(int indice) {
         deck.remove(indice);
     }
+
+    public int getScore() {
+        int score = 0;
+        List<Card> temp = new ArrayList<>();
+        for (Card card : deck) {
+            boolean cardExists = false;
+
+            // Vérifie si la carte existe déjà dans temp
+            for (Card existingCard : temp) {
+                if (existingCard.getValue() == card.getValue()) {
+                    cardExists = true;
+                    break;
+                }
+            }
+
+            // Ajoute la carte si elle n'existe pas
+            if (!cardExists) {
+                temp.add(card);
+                score += card.getValue();
+            }
+        }
+        return score;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

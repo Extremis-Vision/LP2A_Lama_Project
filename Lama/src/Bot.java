@@ -1,3 +1,5 @@
+package Bot;
+
 import Player.Player;
 import Stack.Stack;
 import Deck.Deck;
@@ -19,7 +21,7 @@ public class Bot extends Player{
     public int getPlayableCard(Card currentCard) {
         for (int i = 0; i < getDeck().getDeckSize(); i++) {
             Card card = getDeck().getCard(i);
-            if ((card.getValue() >= currentCard.getValue()) || (card.getValue() == 1 && currentCard.getValue() == 10)) {
+            if ((card.getValue() >= currentCard.getValue()) || (card.getValue() == 1 && currentCard.getValue() == 10) || (card.getValue() == 10 && currentCard.getValue() == 10) || (card.getValue() == 6 && currentCard.getValue() == 10)) {
                 return i;
             }
         }
