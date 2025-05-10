@@ -20,7 +20,8 @@ public class Deck {
     }
 
     public Card placeCard(int indice) {
-        if (deck.isEmpty()) {
+        System.out.println("PlaceCard : " + indice);
+        if (deck.isEmpty()){
             return null; // ou lancer une exception personnalisée
         }
         return deck.remove(indice);

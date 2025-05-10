@@ -1,3 +1,4 @@
+package Bot;
 import Player.Player;
 import Stack.Stack;
 import Deck.Deck;
@@ -24,6 +25,15 @@ public class Bot extends Player{
             }
         }
         return -1;
+    }
+
+    public boolean isBot(Player player){
+        if (player instanceof Bot){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public String chooseAction(Deck currentDeck, Stack stack){
