@@ -11,11 +11,28 @@ import java.util.ArrayList;
 public class Player extends User {
     private Deck deck;
     protected Rocks rocks;
+    private String name;
+    private String birthDate;
 
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
     public Player(String name) {
         super(name);
         this.deck = new Deck();
         this.rocks = new Rocks();
+    }
+
+    public Player(String name, String birthDate) {
+        super();
+        this.name = name;
+        this.birthDate = birthDate;
     }
 
     @Override

@@ -8,6 +8,10 @@ public class User {
         this.name = name;
     }
 
+    public User() {
+
+    }
+
     public String toString() {
         return "User {" +
                 "name='" + name + '\'' +

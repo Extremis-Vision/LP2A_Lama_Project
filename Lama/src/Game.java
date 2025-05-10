@@ -17,6 +17,9 @@ public class Game {
         players_list = new ArrayList<>();
         game_rocks = new Rocks_Game();
     }
+    public Game(ArrayList<Player> players_list) {
+        this.players_list = players_list;
+    }
 
     public void addPlayer(Player player) {
         players_list.add(player);
