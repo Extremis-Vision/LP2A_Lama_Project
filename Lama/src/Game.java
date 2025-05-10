@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 public class Game {
     private ArrayList<Player> players_list;
+    private ArrayList<Player> players_game;
     private Rocks_Game game_rocks;
 
     public Game() {
@@ -69,11 +70,12 @@ public class Game {
         currentDeck.addCard(pioche.draw());
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Player> players_game = new ArrayList<>(players_list);
+        players_game = new ArrayList<>(players_list);
 
         while (!isFinished(currentDeck)) {
-            for (Player player : players_game) {
+            for (int player_id = 0; player_id < players_game.size(); player_id++) {
                 boolean player_played = false;
+                Player player = players_game.get(player_id);
                 while (!player_played) {
 
                     String input;
@@ -128,7 +130,8 @@ public class Game {
 
                         case "Q":
                             System.out.println(player.getName() + " a quitté la manche.");
-                            players_list.remove(player);
+                            players_game.remove(player_id);
+                            player_id--;
                             player_played = true;
                             break;
 
@@ -143,9 +146,6 @@ public class Game {
                 }
             }
         }
-
-
-        players_list = players_game;
 
         System.out.println("Fin de la manche.");
         System.out.println("Nb carte restantes  " + pioche.getDeckSize());
@@ -169,9 +169,9 @@ public class Game {
 
     private boolean isFinished(Deck currentDeck) {
         boolean player_played = false;
-        if (players_list.isEmpty()) player_played = true;
+        if (players_game.isEmpty()) player_played = true;
 
-        for (Player player : players_list) {
+        for (Player player : players_game) {
             if (player.hasPlayableCard(currentDeck.getLastCard())) {
                 player_played = false;
             }
