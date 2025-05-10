@@ -20,7 +20,7 @@ public class Deck {
     }
 
     public Card placeCard(int indice) {
-        System.out.println("PlaceCard : " + indice);
+        System.out.println("PlaceCard : " + this.deck.get(indice).getValue());
         if (deck.isEmpty()) {
             return null; // ou lancer une exception personnalisée
         }

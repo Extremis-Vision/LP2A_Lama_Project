@@ -69,22 +69,25 @@ public class Game {
         currentDeck.addCard(pioche.draw());
 
         Scanner sc = new Scanner(System.in);
-        Iterator<Player> iterator = players_list.iterator();
+        ArrayList<Player> players_game = new ArrayList<>(players_list);
 
-        while (iterator.hasNext() && !isFinished(currentDeck)) {
-            Player player = iterator.next();
+        while (!isFinished(currentDeck)) {
+            for (Player player : players_game) {
                 boolean player_played = false;
                 while (!player_played) {
-                    System.out.println("\n" + player.getName() + ", voici votre deck :");
-                    System.out.println(player.getDeck());
-                    System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
-                    System.out.println("Actions : Poser carte (P), Piocher (PC), Quitter (Q)");
 
                     String input;
                     if (player instanceof Bot) {
                         input = ((Bot) player).chooseAction(currentDeck, pioche);
-                        System.out.println("Le bot "+ player.getName() + " à choisie l'action : "+ input);
+                        System.out.println("Le bot " + player.getName() + " à choisie l'action : " + input);
+                        System.out.println("\n" + player.getName() + ", voici votre deck :");
+                        System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
                     } else {
+                        System.out.println("\n" + player.getName() + ", voici votre deck :");
+                        System.out.println(player.getDeck());
+                        System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
+                        System.out.println("Actions : Poser carte (P), Piocher (PC), Quitter (Q)");
+
                         input = sc.nextLine().toUpperCase();
                     }
 
@@ -101,7 +104,7 @@ public class Game {
 
                             if (index >= 0 && index < player.getDeck().getDeckSize()) {
                                 Card selected = player.getDeck().getCard(index);
-                                if (selected.getValue() >= currentDeck.getLastCard().getValue() || (selected.getValue() == 1 && currentDeck.getLastCard().getValue() == 10) || (selected.getValue() == 10 && currentDeck.getLastCard().getValue() == 10) ||(selected.getValue() == 6 && currentDeck.getLastCard().getValue() == 10)   ) {
+                                if (selected.getValue() >= currentDeck.getLastCard().getValue() || (selected.getValue() == 1 && currentDeck.getLastCard().getValue() == 10) || (selected.getValue() == 10 && currentDeck.getLastCard().getValue() == 10) || (selected.getValue() == 6 && currentDeck.getLastCard().getValue() == 10)) {
                                     currentDeck.addCard(selected);
                                     player.getDeck().placeCard(index);
                                     player_played = true;
@@ -125,7 +128,7 @@ public class Game {
 
                         case "Q":
                             System.out.println(player.getName() + " a quitté la manche.");
-                            iterator.remove();
+                            players_list.remove(player);
                             player_played = true;
                             break;
 
@@ -138,9 +141,11 @@ public class Game {
                         break;
                     }
                 }
+            }
         }
 
 
+        players_list = players_game;
 
         System.out.println("Fin de la manche.");
         System.out.println("Nb carte restantes  " + pioche.getDeckSize());
