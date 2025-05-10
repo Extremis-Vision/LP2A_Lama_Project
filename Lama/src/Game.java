@@ -163,7 +163,7 @@ public class Game {
         for (Player player : players_list) {
             int score = player.getDeck().getScore();
             player.addPoints(game_rocks, score);
-            System.out.println(player.getName() + " a maintenant " + player.getRocks().getScore() + " points. le score donné est de : " + score);
+            System.out.println(player.getName() + " a maintenant " + player.getRocks().getScore());
         }
     }
 
