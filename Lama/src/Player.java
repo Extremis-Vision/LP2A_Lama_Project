@@ -5,17 +5,26 @@ import User.User;
 import Deck.Deck;
 import Rocks.Rocks;
 import Rocks_Game.Rocks_Game;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 
 public class Player extends User {
     private Deck deck;
     protected Rocks rocks;
+    private LocalDate dateofbirth;
 
     public Player(String name) {
         super(name);
         this.deck = new Deck();
         this.rocks = new Rocks();
+        this.dateofbirth = LocalDate.now();
+    }
+    public Player(String name, LocalDate dateofbirth) {
+        super(name);
+        this.deck = new Deck();
+        this.rocks = new Rocks();
+        this.dateofbirth = dateofbirth;
     }
 
     @Override

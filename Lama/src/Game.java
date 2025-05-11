@@ -1,4 +1,4 @@
-package Game;
+package Card;
 
 import Player.Player;
 import Rocks_Game.Rocks_Game;
@@ -83,6 +83,7 @@ public class Game {
                         input = ((Bot) player).chooseAction(currentDeck, pioche);
                         System.out.println("Le bot " + player.getName() + " à choisie l'action : " + input);
                         System.out.println("\n" + player.getName() + ", voici votre deck :");
+                        System.out.println(player.getDeck());
                         System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
                     } else {
                         System.out.println("\n" + player.getName() + ", voici votre deck :");
