@@ -1,23 +1,36 @@
-package Llama;
+package Lama;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * This class represents the game and manages the game logic.
+ */
 public class Game {
-    private ArrayList<Player> players_list;
-    private ArrayList<Player> players_game;
-    private Rocks_Game game_rocks;
+    private ArrayList<Player> players_list; // List of all players in the game
+    private ArrayList<Player> players_game; // List of players currently in the game
+    private Rocks_Game game_rocks; // Instance of the Rocks_Game
 
+    /**
+     * Constructor for the Game class.
+     * Initializes the list of players and the Rocks_Game instance.
+     */
     public Game() {
         players_list = new ArrayList<>();
         game_rocks = new Rocks_Game();
     }
 
+    /**
+     * Adds a player to the game.
+     * @param player The player to add.
+     */
     public void addPlayer(Player player) {
         players_list.add(player);
     }
 
+    /**
+     * Starts the game.
+     */
     public void startGame() {
         boolean gameOver = false;
         Player loser = null;
@@ -36,15 +49,18 @@ public class Game {
             }
 
             if (!gameOver) {
-                System.out.println("\n--- Nouvelle manche ! ---\n");
+                System.out.println("\n--- New round! ---\n");
             }
         }
 
         if (loser != null) {
-            System.out.println("Le perdant est " + loser.getName() + " avec " + loser.getRocks().getScore() + " points !");
+            System.out.println("The loser is " + loser.getName() + " with " + loser.getRocks().getScore() + " points!");
         }
     }
 
+    /**
+     * Initializes the game by setting up the deck and players.
+     */
     private void initializeGame() {
         Stack pioche = new Stack();
 
@@ -75,14 +91,14 @@ public class Game {
                     String input;
                     if (player instanceof Bot) {
                         input = ((Bot) player).chooseAction(currentDeck, pioche);
-                        System.out.println("Le bot " + player.getName() + " à choisie l'action : " + input);
-                        System.out.println("\n" + player.getName() + ", voici votre deck :");
-                        System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
+                        System.out.println("The bot " + player.getName() + " chose the action: " + input);
+                        System.out.println("\n" + player.getName() + ", here is your deck:");
+                        System.out.println("Current card played: " + currentDeck.getLastCard());
                     } else {
-                        System.out.println("\n" + player.getName() + ", voici votre deck :");
+                        System.out.println("\n" + player.getName() + ", here is your deck:");
                         System.out.println(player.getDeck());
-                        System.out.println("Carte jouée actuelle : " + currentDeck.getLastCard());
-                        System.out.println("Actions : Poser carte (P), Piocher (PC), Quitter (Q)");
+                        System.out.println("Current card played: " + currentDeck.getLastCard());
+                        System.out.println("Actions: Play card (P), Draw (PC), Quit (Q)");
 
                         input = sc.nextLine().toUpperCase();
                     }
@@ -93,44 +109,47 @@ public class Game {
                             if (player instanceof Bot) {
                                 index = ((Bot) player).getPlayableCard(currentDeck.getLastCard());
                             } else {
-                                System.out.println("Index de carte à jouer (0 à " + (player.getDeck().getDeckSize() - 1) + "):");
+                                System.out.println("Index of card to play (0 to " + (player.getDeck().getDeckSize() - 1) + "):");
                                 index = sc.nextInt();
                                 sc.nextLine();
                             }
 
                             if (index >= 0 && index < player.getDeck().getDeckSize()) {
                                 Card selected = player.getDeck().getCard(index);
-                                if (selected.getValue() >= currentDeck.getLastCard().getValue() || (selected.getValue() == 1 && currentDeck.getLastCard().getValue() == 10) || (selected.getValue() == 10 && currentDeck.getLastCard().getValue() == 10) || (selected.getValue() == 6 && currentDeck.getLastCard().getValue() == 10)) {
+                                if (selected.getValue() >= currentDeck.getLastCard().getValue() ||
+                                        (selected.getValue() == 1 && currentDeck.getLastCard().getValue() == 10) ||
+                                        (selected.getValue() == 10 && currentDeck.getLastCard().getValue() == 10) ||
+                                        (selected.getValue() == 6 && currentDeck.getLastCard().getValue() == 10)) {
                                     currentDeck.addCard(selected);
                                     player.getDeck().placeCard(index);
                                     player_played = true;
                                 } else {
-                                    System.out.println("Carte non valide !");
+                                    System.out.println("Invalid card!");
                                 }
                             } else {
-                                System.out.println("Index invalide.");
+                                System.out.println("Invalid index.");
                             }
                             break;
 
                         case "PC":
                             if (!pioche.isEmpty()) {
                                 player.getDeck().addCard(pioche.draw());
-                                System.out.println("Carte piochée !");
+                                System.out.println("Card drawn!");
                                 player_played = true;
                             } else {
-                                System.out.println("La pioche est vide.");
+                                System.out.println("The draw pile is empty.");
                             }
                             break;
 
                         case "Q":
-                            System.out.println(player.getName() + " a quitté la manche.");
+                            System.out.println(player.getName() + " has left the round.");
                             players_game.remove(player_id);
                             player_id--;
                             player_played = true;
                             break;
 
                         default:
-                            System.out.println("Choix invalide.");
+                            System.out.println("Invalid choice.");
                             break;
                     }
 
@@ -141,26 +160,31 @@ public class Game {
             }
         }
 
-        System.out.println("Fin de la manche.");
-        System.out.println("Nb carte restantes  " + pioche.getDeckSize());
-
+        System.out.println("End of the round.");
+        System.out.println("Number of remaining cards: " + pioche.getDeckSize());
 
         for (Player player : players_list) {
-            System.out.println("\n" + player.getName() + ", voici votre deck :");
+            System.out.println("\n" + player.getName() + ", here is your deck:");
             System.out.println(player.getDeck());
         }
-
-
     }
 
+    /**
+     * Adds points to the players based on their deck score.
+     */
     private void pointAdding() {
         for (Player player : players_list) {
             int score = player.getDeck().getScore();
             player.addPoints(game_rocks, score);
-            System.out.println(player.getName() + " a maintenant " + player.getRocks().getScore());
+            System.out.println(player.getName() + " now has " + player.getRocks().getScore());
         }
     }
 
+    /**
+     * Checks if the game is finished.
+     * @param currentDeck The current deck of cards.
+     * @return true if the game is finished, false otherwise.
+     */
     private boolean isFinished(Deck currentDeck) {
         boolean player_played = false;
         if (players_game.isEmpty()) player_played = true;
@@ -170,7 +194,6 @@ public class Game {
                 player_played = false;
             }
         }
-
 
         return player_played;
     }
