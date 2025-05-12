@@ -1,9 +1,6 @@
-package Rocks;
+package Llama;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import Rock.Rock;
 
 public class Rocks {
     private List<Rock> rocks;

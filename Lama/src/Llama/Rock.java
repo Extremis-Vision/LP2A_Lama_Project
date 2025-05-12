@@ -1,7 +1,5 @@
-package Rock;
+package Llama;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Rock {
     private int value;

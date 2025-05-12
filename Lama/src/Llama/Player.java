@@ -1,12 +1,4 @@
-package Player;
-
-import Card.Card;
-import User.User;
-import Deck.Deck;
-import Rocks.Rocks;
-import Rocks_Game.Rocks_Game;
-
-import java.util.ArrayList;
+package Llama;
 
 public class Player extends User {
     private Deck deck;
@@ -39,13 +31,13 @@ public class Player extends User {
         int numberWhite = score%10;
         int numberBlack = score/10;
         for (int whitenumber = 0; whitenumber < numberWhite; whitenumber++) {
-            Rock.Rock rock = game.getRocks(1);
+            Rock rock = game.getRocks(1);
             if (rock != null) {
                 rocks.addRock(rock);
             }
         }
         for (int blacknumber = 0; blacknumber < numberBlack; blacknumber++) {
-            Rock.Rock rock = game.getRocks(10);
+            Rock rock = game.getRocks(10);
             if (rock != null) {
                 rocks.addRock(rock);
             }

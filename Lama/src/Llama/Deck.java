@@ -1,9 +1,8 @@
-package Deck;
+package Llama;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import Card.Card;
 
 public class Deck {
     protected List<Card> deck = new ArrayList<>();
@@ -14,7 +13,7 @@ public class Deck {
 
     public Card getCard(int indice) {
         if (deck.isEmpty()) {
-            return null; // ou lancer une exception personnalisée
+            return null;
         }
         return deck.get(indice);
     }
@@ -22,7 +21,7 @@ public class Deck {
     public Card placeCard(int indice) {
         System.out.println("PlaceCard : " + this.deck.get(indice).getValue());
         if (deck.isEmpty()) {
-            return null; // ou lancer une exception personnalisée
+            return null;
         }
         return deck.remove(indice);
     }
@@ -41,7 +40,7 @@ public class Deck {
 
     public Card draw() {
         if (deck.isEmpty()) {
-            return null; // ou lancer une exception personnalisée
+            return null;
         }
         return deck.remove(0);
     }
@@ -64,7 +63,7 @@ public class Deck {
         for (Card card : deck) {
             boolean cardExists = false;
 
-            // Vérifie si la carte existe déjà dans temp
+
             for (Card existingCard : temp) {
                 if (existingCard.getValue() == card.getValue()) {
                     cardExists = true;
@@ -72,7 +71,6 @@ public class Deck {
                 }
             }
 
-            // Ajoute la carte si elle n'existe pas
             if (!cardExists) {
                 temp.add(card);
                 score += card.getValue();
@@ -89,7 +87,6 @@ public class Deck {
             sb.append(card).append(", \n");
         }
         if (!deck.isEmpty()) {
-            // Enlever la dernière virgule et espace
             sb.setLength(sb.length() - 2);
         }
         sb.append("}");

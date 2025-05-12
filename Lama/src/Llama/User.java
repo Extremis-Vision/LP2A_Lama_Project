@@ -1,4 +1,4 @@
-package User;
+package Llama;
 
 public class User {
     public String name;

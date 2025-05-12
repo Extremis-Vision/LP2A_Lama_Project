@@ -1,14 +1,8 @@
-package Game;
+package Llama;
 
-import Player.Player;
-import Rocks_Game.Rocks_Game;
-import Stack.Stack;
-import Deck.Deck;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Bot.Bot;
-import Card.Card;
-import java.util.Iterator;
+
 
 public class Game {
     private ArrayList<Player> players_list;
@@ -29,7 +23,7 @@ public class Game {
         Player loser = null;
 
         while (!gameOver) {
-            initialize_game();
+            initializeGame();
             pointAdding();
 
             for (Player player : players_list) {
@@ -51,7 +45,7 @@ public class Game {
         }
     }
 
-    private void initialize_game() {
+    private void initializeGame() {
         Stack pioche = new Stack();
 
         for (Player player : players_list) {

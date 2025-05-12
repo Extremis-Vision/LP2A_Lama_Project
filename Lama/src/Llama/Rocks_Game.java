@@ -1,9 +1,4 @@
-package Rocks_Game;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import Rock.Rock;
-import Rocks.Rocks;
+package Llama;
 
 public class Rocks_Game extends Rocks {
     public Rocks_Game() {

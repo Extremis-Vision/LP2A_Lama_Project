@@ -1,9 +1,4 @@
-package Bot;
-
-import Player.Player;
-import Stack.Stack;
-import Deck.Deck;
-import Card.Card;
+package Llama;
 
 public class Bot extends Player{
     private int level;

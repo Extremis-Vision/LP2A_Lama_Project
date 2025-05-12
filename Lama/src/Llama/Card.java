@@ -1,4 +1,4 @@
-package Card;
+package Llama;
 
 public class Card {
     private int value;
@@ -74,7 +74,6 @@ public class Card {
         return "Card{" +
                 "value=" + value +
                 ", name='" + name + '\'' +
-                ", PathtoImage='" + PathtoImage + '\'' +
                 '}';
     }
 }
