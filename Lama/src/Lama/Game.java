@@ -93,6 +93,7 @@ public class Game {
                         input = ((Bot) player).chooseAction(currentDeck, pioche);
                         System.out.println("The bot " + player.getName() + " chose the action: " + input);
                         System.out.println("\n" + player.getName() + ", here is your deck:");
+                        System.out.println(player.getDeck());
                         System.out.println("Current card played: " + currentDeck.getLastCard());
                     } else {
                         System.out.println("\n" + player.getName() + ", here is your deck:");
@@ -190,7 +191,9 @@ public class Game {
         if (players_game.isEmpty()) player_played = true;
 
         for (Player player : players_game) {
-            if (player.hasPlayableCard(currentDeck.getLastCard())) {
+            if (player.getDeck().isEmpty()) {
+                player_played = true;
+            }else if (player.hasPlayableCard(currentDeck.getLastCard())) {
                 player_played = false;
             }
         }

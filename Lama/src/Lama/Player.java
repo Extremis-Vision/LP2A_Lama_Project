@@ -1,5 +1,6 @@
 package Lama;
 
+import java.time.LocalDate;
 /**
  * This class represents a player in the game.
  * It extends the User class and includes a deck of cards and rocks.
@@ -13,8 +14,8 @@ public class Player extends User {
      * Initializes the player's name, deck, and rocks.
      * @param name The name of the player.
      */
-    public Player(String name) {
-        super(name);
+    public Player(String name, LocalDate dateofbirth) {
+        super(name, dateofbirth);
         this.deck = new Deck();
         this.rocks = new Rocks();
     }
@@ -83,6 +84,9 @@ public class Player extends User {
      * @return true if the player has a playable card, false otherwise.
      */
     public boolean hasPlayableCard(Card currentCard) {
+        if (deck.isEmpty()) {
+            return false;
+        }
         for (int i = 0; i < deck.getDeckSize(); i++) {
             Card card = deck.getCard(i);
             if ((card.getValue() >= currentCard.getValue()) ||

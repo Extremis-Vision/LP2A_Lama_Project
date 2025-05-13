@@ -14,7 +14,7 @@ public class Bot extends Player {
      * @param level Level of the bot.
      */
     public Bot(String name, int level) {
-        super(name);
+        super(name, null);
         this.level = level;
     }
 
