@@ -7,9 +7,9 @@ import java.util.Scanner;
  * This class represents the game and manages the game logic.
  */
 public class Game {
-    private ArrayList<Player> players_list; // List of all players in the game
+    private final ArrayList<Player> players_list; // List of all players in the game
     private ArrayList<Player> players_game; // List of players currently in the game
-    private Rocks_Game game_rocks; // Instance of the Rocks_Game
+    private final Rocks_Game game_rocks; // Instance of the Rocks_Game
 
     /**
      * Constructor for the Game class.
