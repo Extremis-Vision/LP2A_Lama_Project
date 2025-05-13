@@ -25,7 +25,7 @@ public class Window {
 
     private void initialize() {
         // Créer une nouvelle fenêtre
-        frame = new JFrame("Mon Interface avec Slider");
+        frame = new JFrame("Jeu du Lama LP2A");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
 
