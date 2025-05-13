@@ -103,8 +103,8 @@ public class Window {
                         System.out.println("Bot added: Player " + (i + 1));
                     }
                     game.startGame();
-                    // Close the window after starting the game
                     frame.dispose(); // This will close the window
+                    // Close the window after starting the game
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(frame, "Error in the beginning of the game: " + ex.getMessage());
                 }
