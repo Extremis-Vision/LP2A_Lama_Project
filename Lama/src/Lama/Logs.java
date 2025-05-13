@@ -12,6 +12,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The Logs class provides methods to handle logging operations.
+ * It enables writing logs to a JSON file while appending new log entries
+ * to the existing log data in the file.
+ * @return nothing but write in the log file.
+ */
 public class Logs {
 
     // Method to write a list of logs to a JSON file, appending to existing logs

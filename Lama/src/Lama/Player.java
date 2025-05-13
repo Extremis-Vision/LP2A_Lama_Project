@@ -21,6 +21,13 @@ public class Player extends User {
         this.rocks = new Rocks();
     }
 
+    /**
+     * Constructor for the Player class.
+     * Initializes the player's name, date of birth, deck, and rocks.
+     *
+     * @param name The name of the player.
+     * @param dateofbirth The date of birth of the player.
+     */
     public Player(String name, LocalDate dateofbirth) {
         super(name);
         this.deck = new Deck();

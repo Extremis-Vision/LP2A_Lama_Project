@@ -23,24 +23,27 @@ public class Window {
         initialize();
     }
 
+    /**
+     * Initialize the contents of the frame.
+     */
     private void initialize() {
-        // Créer une nouvelle fenêtre
-        frame = new JFrame("Jeu du Lama LP2A");
+        // Create a new window
+        frame = new JFrame("Lama Games");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
 
-        // Utiliser un layout pour organiser les composants
+        // Use a layout to organize components
         frame.setLayout(new BorderLayout());
 
-        // Panel pour le slider et son étiquette
+        // Panel for the slider and its label
         JPanel sliderPanel = new JPanel(new FlowLayout());
 
-        // Ajouter une étiquette devant le slider
-        JLabel sliderLabel = new JLabel("Nombre de joueurs: ");
+        // Add a label in front of the slider
+        JLabel sliderLabel = new JLabel("Number of players: ");
         sliderPanel.add(sliderLabel);
 
-        // Créer un slider
-        slider = new JSlider(1, 6, 3); // Min: 1, Max: 6, Valeur initiale: 3
+        // Create a slider
+        slider = new JSlider(1, 6, 3); // Min: 1, Max: 6, Initial value: 3
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
@@ -48,25 +51,25 @@ public class Window {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                sliderValue = slider.getValue(); // Stocker la valeur du slider dans une variable
-                System.out.println("Valeur du slider: " + sliderValue);
+                sliderValue = slider.getValue(); // Store the slider value in a variable
+                System.out.println("Slider value: " + sliderValue);
             }
         });
 
         sliderPanel.add(slider);
 
-        // Panel pour ajouter un joueur
+        // Panel to add a player
         JPanel addPlayerPanel = new JPanel(new FlowLayout());
         nameField = new JTextField(15);
         birthDateField = new JTextField(15);
 
-        addPlayerPanel.add(new JLabel("Nom du joueur:"));
+        addPlayerPanel.add(new JLabel("Name of the player:"));
         addPlayerPanel.add(nameField);
-        addPlayerPanel.add(new JLabel("Date de naissance (YYYY-MM-DD):"));
+        addPlayerPanel.add(new JLabel("Birthdate (YYYY-MM-DD):"));
         addPlayerPanel.add(birthDateField);
 
-        // Créer un bouton pour ajouter un joueur
-        JButton addPlayerButton = new JButton("Ajouter Joueur");
+        // Create a button to add a player
+        JButton addPlayerButton = new JButton("Add Player");
         addPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,49 +77,49 @@ public class Window {
                 String birthDateStr = birthDateField.getText();
                 try {
                     LocalDate birthDate = LocalDate.parse(birthDateStr);
-                    // Ajouter le joueur au jeu
+                    // Add the player to the game
                     game.addPlayer(new Player(name, birthDate));
-                    System.out.println("Joueur ajouté: " + name + ", Date de naissance: " + birthDate);
+                    System.out.println("Added Player: " + name + ", Birthdate: " + birthDate);
                     nbPlayers++;
                     // Clear fields after adding
                     nameField.setText("");
                     birthDateField.setText("");
                 } catch (DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(frame, "Format de date invalide. Utilisez YYYY-MM-DD.");
+                    JOptionPane.showMessageDialog(frame, "Invalid Format. Use YYYY-MM-DD.");
                 }
             }
         });
 
         addPlayerPanel.add(addPlayerButton);
 
-        // Créer un bouton "Play"
+        // Create a "Play" button
         JButton playButton = new JButton("Play!");
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     for (int i = 0; i < sliderValue - nbPlayers; i++) {
-                        game.addPlayer(new Bot("Joueur " + (i + 1), 1));
-                        System.out.println("Bot ajouté: Joueur " + (i + 1));
+                        game.addPlayer(new Bot("Player " + (i + 1), 1));
+                        System.out.println("Bot added: Player " + (i + 1));
                     }
                     game.startGame();
                     // Close the window after starting the game
                     frame.dispose(); // This will close the window
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(frame, "Erreur lors du démarrage du jeu: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(frame, "Error in the beginning of the game: " + ex.getMessage());
                 }
             }
         });
 
-        // Ajouter les composants à la fenêtre
+        // Add components to the window
         frame.add(sliderPanel, BorderLayout.NORTH);
         frame.add(addPlayerPanel, BorderLayout.CENTER);
         frame.add(playButton, BorderLayout.SOUTH);
 
-        // Centrer la fenêtre sur l'écran
+        // Center the window on the screen
         frame.setLocationRelativeTo(null);
 
-        // Rendre la fenêtre visible
+        // Make the window visible
         frame.setVisible(true);
     }
 }
