@@ -73,4 +73,8 @@ public class Rocks {
         sb.append("}");
         return sb.toString();
     }
+
+    public List<Rock> getRocksList() {
+        return rocks;
+    }
 }

@@ -55,23 +55,39 @@ public class Player extends User {
      * @param score The score to convert to rocks.
      */
     public void addPoints(Rocks_Game game, int score) {
-        System.out.println("Score initial pour " + name + ": " + rocks.getScore());
-        int numberWhite = score % 10;
-        int numberBlack = score / 10;
-        System.out.println("Ajout de " + numberWhite + " blancs et " + numberBlack + " noirs");
+        int currentWhites = 0;
+        for (Rock rock : rocks.getRocksList()) {
+            if (rock.getValue() == 1) {
+                currentWhites++;
+            }
+        }
 
-        for (int whitenumber = 0; whitenumber < numberWhite; whitenumber++) {
+        int numberWhite = score % 10;
+        int totalWhites = currentWhites + numberWhite;
+
+        if (totalWhites >= 10) {
+            for(int i = 0; i < currentWhites; i++) {
+                rocks.getRocks(1);
+            }
+
+            Rock blackRock = game.getRocks(10);
+            if (blackRock != null) {
+                rocks.addRock(blackRock);
+            }
+            numberWhite = totalWhites - 10;
+        }
+
+        for (int i = 0; i < numberWhite; i++) {
             Rock rock = game.getRocks(1);
             if (rock != null) {
                 rocks.addRock(rock);
-                System.out.println("Score après ajout blanc: " + rocks.getScore());
             }
         }
-        for (int blacknumber = 0; blacknumber < numberBlack; blacknumber++) {
+
+        for (int i = 0; i < score / 10; i++) {
             Rock rock = game.getRocks(10);
             if (rock != null) {
                 rocks.addRock(rock);
-                System.out.println("Score après ajout noir: " + rocks.getScore());
             }
         }
     }
