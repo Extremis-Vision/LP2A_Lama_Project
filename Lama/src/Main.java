@@ -69,6 +69,9 @@ public class Main {
                     game.addPlayer(new Player(name, birthDate));
                     System.out.println("Joueur ajouté: " + name + ", Date de naissance: " + birthDate);
                     nbPlayers++;
+                    // Clear fields after adding
+                    nameField.setText("");
+                    birthDateField.setText("");
                 } catch (DateTimeParseException ex) {
                     JOptionPane.showMessageDialog(frame, "Format de date invalide. Utilisez YYYY-MM-DD.");
                 }
@@ -85,6 +88,7 @@ public class Main {
                 try {
                     for (int i = 0; i < sliderValue - nbPlayers; i++) {
                         game.addPlayer(new Bot("Joueur " + (i + 1), 1));
+                        System.out.println("Bot ajouté: Joueur " + (i + 1));
                     }
                     game.startGame();
                 } catch (Exception ex) {

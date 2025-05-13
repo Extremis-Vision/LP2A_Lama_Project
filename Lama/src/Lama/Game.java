@@ -3,21 +3,20 @@ package Lama;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * This class represents the game and manages the game logic.
- */
 public class Game {
     private ArrayList<Player> players_list; // List of all players in the game
     private ArrayList<Player> players_game; // List of players currently in the game
     private Rocks_Game game_rocks; // Instance of the Rocks_Game
+    private Logs logs; // Instance of the Logs class
 
     /**
      * Constructor for the Game class.
-     * Initializes the list of players and the Rocks_Game instance.
+     * Initializes the list of players, the Rocks_Game instance, and the Logs instance.
      */
     public Game() {
         players_list = new ArrayList<>();
         game_rocks = new Rocks_Game();
+        logs = new Logs(); // Initialize the Logs instance
     }
 
     /**
@@ -34,6 +33,9 @@ public class Game {
     public void startGame() {
         boolean gameOver = false;
         Player loser = null;
+        ArrayList<String> gameLogs = new ArrayList<>();
+        String winner = null;
+        int winnerScore = Integer.MAX_VALUE; // Initialize with a high value
 
         while (!gameOver) {
             initializeGame();
@@ -54,9 +56,28 @@ public class Game {
         }
 
         if (loser != null) {
-            System.out.println("The loser is " + loser.getName() + " with " + loser.getRocks().getScore() + " points!");
+            String loserMessage = "The loser is " + loser.getName() + " with " + loser.getRocks().getScore() + " points!";
+            System.out.println(loserMessage);
+            gameLogs.add(loserMessage);
+
+            // Determine the winner (assuming the player with the lowest score is the winner)
+            for (Player player : players_list) {
+                if (player.getRocks().getScore() < winnerScore) {
+                    winner = player.getName();
+                    winnerScore = player.getRocks().getScore();
+                }
+            }
+
+            // Log the winner
+            String winnerMessage = "The winner is " + winner + " with " + winnerScore + " points!";
+            System.out.println(winnerMessage);
+            gameLogs.add(winnerMessage);
+
+            // Log the winner and losers
+            logs.writeLogs(gameLogs, "game_logs.json");
         }
     }
+
 
     /**
      * Initializes the game by setting up the deck and players.
