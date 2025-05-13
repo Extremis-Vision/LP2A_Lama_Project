@@ -1,7 +1,6 @@
 package Lama;
 import java.time.LocalDate;
 
-import java.time.LocalDate;
 /**
  * This class represents a player in the game.
  * It extends the User class and includes a deck of cards and rocks.
@@ -56,7 +55,7 @@ public class Player extends User {
      * @param game The game instance to get rocks from.
      * @param score The score to convert to rocks.
      */
-    public void addPoints(Rocks_Game game, int score) {
+    public void addPoints(RocksGame game, int score) {
         int currentWhites = 0;
         for (Rock rock : rocks.getRocksList()) {
             if (rock.getValue() == 1) {

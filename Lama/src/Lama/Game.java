@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Game {
     private ArrayList<Player> players_list; // List of all players in the game
     private ArrayList<Player> players_game; // List of players currently in the game
-    private Rocks_Game game_rocks; // Instance of the Rocks_Game
+    private RocksGame game_rocks; // Instance of the Rocks_Game
     private Logs logs; // Instance of the Logs class
 
     /**
@@ -15,7 +15,7 @@ public class Game {
      */
     public Game() {
         players_list = new ArrayList<>();
-        game_rocks = new Rocks_Game();
+        game_rocks = new RocksGame();
         logs = new Logs(); // Initialize the Logs instance
     }
 
