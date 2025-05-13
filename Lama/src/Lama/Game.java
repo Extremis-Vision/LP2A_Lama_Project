@@ -124,6 +124,13 @@ public class Game {
                                     currentDeck.addCard(selected);
                                     player.getDeck().placeCard(index);
                                     player_played = true;
+
+                                    if (player.getDeck().isEmpty()) {
+                                        System.out.println(player.getName() + " n'a plus de cartes !");
+                                        players_game.clear(); // Force l'arrêt du round
+                                        break;
+                                    }
+
                                 } else {
                                     System.out.println("Invalid card!");
                                 }
@@ -176,6 +183,7 @@ public class Game {
     private void pointAdding() {
         for (Player player : players_list) {
             int score = player.getDeck().getScore();
+            System.out.println(score);
             player.addPoints(game_rocks, score);
             System.out.println(player.getName() + " now has " + player.getRocks().getScore());
         }
@@ -191,9 +199,7 @@ public class Game {
         if (players_game.isEmpty()) player_played = true;
 
         for (Player player : players_game) {
-            if (player.getDeck().isEmpty()) {
-                player_played = true;
-            }else if (player.hasPlayableCard(currentDeck.getLastCard())) {
+            if (player.hasPlayableCard(currentDeck.getLastCard())) {
                 player_played = false;
             }
         }
