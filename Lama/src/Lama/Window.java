@@ -99,9 +99,9 @@ public class Window {
                         game.addPlayer(new Bot("Joueur " + (i + 1), 1));
                         System.out.println("Bot ajouté: Joueur " + (i + 1));
                     }
+                    frame.dispose();// This will close the window
                     game.startGame();
                     // Close the window after starting the game
-                    frame.dispose(); // This will close the window
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(frame, "Erreur lors du démarrage du jeu: " + ex.getMessage());
                 }

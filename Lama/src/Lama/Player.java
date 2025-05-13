@@ -22,12 +22,6 @@ public class Player extends User {
         this.rocks = new Rocks();
     }
 
-    public Player(String name, LocalDate dateofbirth) {
-        super(name);
-        this.deck = new Deck();
-        this.rocks = new Rocks();
-        this.dateofbirth = dateofbirth;
-    }
     /**
      * Returns a string representation of the player.
      * @return String representation of the player.
