@@ -1,45 +1,43 @@
-# 🎮 Projet : Jeu de Cartes LAMA 🃏
+# 🎮 Project: LAMA Card Game 🃏
 
 ## 📝 Description
-LAMA est un jeu de cartes dynamique et coloré, conçu pour 2 à 6 joueurs, où l'objectif principal est de se débarrasser de ses cartes le plus rapidement possible. Le jeu se joue avec un jeu de 56 cartes, incluant des cartes numérotées de 1 à 6 et une carte spéciale de Lama. Les points sont comptés à l'aide de jetons noirs et blancs valant repectivement 1 et 10 points
+LAMA is a dynamic and colorful card game designed for 2 to 6 players, where the main objective is to get rid of your cards as quickly as possible. The game is played with a deck of 56 cards, including numbered cards from 1 to 6 and a special Lama card. Points are counted using black and white tokens worth 1 and 10 points respectively.
 
-## 🎯 Règles de Base
+## 🎯 Basic Rules
 
-1. **🃏 Distribution des Cartes :**
-   - Chaque joueur reçoit 6 cartes au début de la partie.
-   - Le reste des cartes forme la pioche, et la première carte de la pioche est retournée pour commencer la défausse.
+1. **🃏 Dealing the Cards:**
+   - Each player receives 6 cards at the beginning of the game.
+   - The remaining cards form the draw pile, and the first card of the draw pile is turned over to start the discard pile.
 
-2. **🔄 Déroulement de la manche :**
-   - Les joueurs doivent se débarrasser de leurs cartes en les posant sur la défausse.
-   - Les cartes posées doivent correspondre ou avoir une valeur supérieure de 1.
-   - Sur un Lama, les seuls cartes pouvant être posés sont soit un 1 soit un lama.
-   - 
-4. **🏆 Fin de Manche et décompte des points :**
-   - La partie se termine si l'une des personnes n'a plus de carte en main ou si tout le monde a abandonné
-   - Chaque joueur compte les valeurs des cartes restantes en main (chaque valeur ne compte qu’une seule fois et le lama compte pour 10 points).  La valeur est alors distribuée en jeton.
-   - Si une personne arrive à ne plus avoir de carte à la fin d'une manche il enleve l'un de ses jetons.
-  
-5. **Fin du jeu :**
-   - la partie s'arrete quand l'un des joueurs atteints un total de 40 points ou plus.
-   - Le gagnant est celui avec le moins de point. 
-  
+2. **🔄 Gameplay:**
+   - Players must get rid of their cards by placing them on the discard pile.
+   - The cards played must match or have a value one higher.
+   - On a Lama, the only cards that can be played are either a 1 or a Lama.
 
-## 🎯 Objectif
-L'objectif du jeu est de se débarrasser de toutes ses cartes en premier et d'avoir le moins de points possible à la fin du jeu.
+4. **🏆 End of Round and Scoring:**
+   - The round ends if one of the players has no cards left in hand or if everyone has passed.
+   - Each player counts the values of the remaining cards in hand (each value is counted only once and the Lama counts for 10 points). The value is then distributed as tokens.
+   - If a player manages to have no cards left at the end of a round, they remove one of their tokens.
 
-## 👨‍👩‍👧‍👦 Public Cible
-Le jeu est adapté pour les enfants et les adultes, offrant une expérience de jeu amusante et compétitive pour toute la famille.
+5. **End of the Game:**
+   - The game ends when one of the players reaches a total of 40 points or more.
+   - The winner is the one with the fewest points.
+
+## 🎯 Objective
+The objective of the game is to get rid of all your cards first and have the fewest points at the end of the game.
+
+## 👨‍👩‍👧‍👦 Target Audience
+The game is suitable for children and adults, offering a fun and competitive gaming experience for the whole family.
 
 ## 🗺️ Roadmap
 
-### ✅ Étapes Complétées
-- [x] **📐 Schéma UML :** Le schéma UML du jeu est terminé.
-- [x] **🎮 Fonctionnalité de Base :** Le jeu est fonctionnel avec les règles de base implémentées.
+### ✅ Completed Steps
+- [x] **📐 UML Diagram:** The UML diagram of the game is completed.
+- [x] **🎮 Basic Functionality:** The game is functional with the basic rules implemented.
 
-### 🚧 Étapes en Cours
-- [ ] **🤖 Bots :** Développement des bots pour jouer contre l'ordinateur.
-- [ ] **🎨 Affichage Graphique :** Amélioration de l'interface graphique pour une meilleure expérience utilisateur.
+### 🚧 Steps in Progress
+- [X] **🤖 Bots:** Development of bots to play against the computer.
+- [X] **🎨 Graphical Display:** Improvement of the graphical interface for a better user experience.
 
-### 🔜 Étapes à Venir
-- [ ] **🧪 Tests :** Tests approfondis pour garantir la stabilité et l'équilibre du jeu.
-- [ ] **📦 Déploiement :** Préparation pour le déploiement et la distribution du jeu.
+### 🔜 Upcoming Steps
+- [X] **🧪 Tests:** Thorough testing to ensure the stability and balance of the game.
