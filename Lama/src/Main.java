@@ -1,18 +1,117 @@
-import Lama.*;
+package Card;
+import Player.Player;
+import Rocks_Game.Rocks_Game;
+import Stack.Stack;
+import Deck.Deck;
+
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import Card.Card;
+import Bot.Bot;
+import Card.Game;
+import java.time.LocalDate;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
-    public static void main(String[] args) {
+    private static int sliderValue;
+    private static int nbPlayers = 0;
 
+    public static void main(String[] args) {
         Game game = new Game();
 
+        // Créer une nouvelle fenêtre
+        JFrame frame = new JFrame("Mon Interface avec Slider");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
 
+        // Utiliser un layout pour organiser les composants
+        frame.setLayout(new BorderLayout());
 
-        // Création des joueurs
-        game.addPlayer(new Bot("Bob",1));
-        game.addPlayer(new Bot("Alice", 1));
-        game.addPlayer(new Bot("Charlie",1));
+        // Panel pour le slider et son étiquette
+        JPanel sliderPanel = new JPanel(new FlowLayout());
 
-        game.startGame();
+        // Ajouter une étiquette devant le slider
+        JLabel sliderLabel = new JLabel("Nombre de joueurs: ");
+        sliderPanel.add(sliderLabel);
 
+        // Créer un slider
+        JSlider slider = new JSlider(1, 6, 3); // Min: 1, Max: 6, Valeur initiale: 3
+        slider.setMajorTickSpacing(1);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                sliderValue = slider.getValue(); // Stocker la valeur du slider dans une variable
+                System.out.println("Valeur du slider: " + sliderValue);
+            }
+        });
+
+        sliderPanel.add(slider);
+
+        // Panel pour ajouter un joueur
+        JPanel addPlayerPanel = new JPanel(new FlowLayout());
+        JTextField nameField = new JTextField(15);
+        JTextField birthDateField = new JTextField(15);
+
+        addPlayerPanel.add(new JLabel("Nom du joueur:"));
+        addPlayerPanel.add(nameField);
+        addPlayerPanel.add(new JLabel("Date de naissance (YYYY-MM-DD):"));
+        addPlayerPanel.add(birthDateField);
+
+        // Créer un bouton pour ajouter un joueur
+        JButton addPlayerButton = new JButton("Ajouter Joueur");
+        addPlayerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String birthDateStr = birthDateField.getText();
+                try {
+                    LocalDate birthDate = LocalDate.parse(birthDateStr);
+                    // Ajouter le joueur au jeu
+                    game.addPlayer(new Player(name, birthDate));
+                    System.out.println("Joueur ajouté: " + name + ", Date de naissance: " + birthDate);
+                    nbPlayers++;
+                } catch (DateTimeParseException ex) {
+                    JOptionPane.showMessageDialog(frame, "Format de date invalide. Utilisez YYYY-MM-DD.");
+                }
+            }
+        });
+
+        addPlayerPanel.add(addPlayerButton);
+
+        // Créer un bouton "Play"
+        JButton playButton = new JButton("Play!");
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    for (int i = 0; i < sliderValue - nbPlayers; i++) {
+                        game.addPlayer(new Bot("Joueur " + (i + 1), 1));
+                    }
+                    game.startGame();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(frame, "Erreur lors du démarrage du jeu: " + ex.getMessage());
+                }
+            }
+        });
+
+        // Ajouter les composants à la fenêtre
+        frame.add(sliderPanel, BorderLayout.NORTH);
+        frame.add(addPlayerPanel, BorderLayout.CENTER);
+        frame.add(playButton, BorderLayout.SOUTH);
+
+        // Centrer la fenêtre sur l'écran
+        frame.setLocationRelativeTo(null);
+
+        // Rendre la fenêtre visible
+        frame.setVisible(true);
     }
 }
