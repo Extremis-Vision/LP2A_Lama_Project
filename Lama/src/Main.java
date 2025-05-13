@@ -1,15 +1,5 @@
-package Card;
-import Player.Player;
-import Rocks_Game.Rocks_Game;
-import Stack.Stack;
-import Deck.Deck;
-
+import Lama.*;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import Card.Card;
-import Bot.Bot;
-import Card.Game;
 import java.time.LocalDate;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

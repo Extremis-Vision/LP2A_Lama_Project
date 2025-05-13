@@ -1,4 +1,5 @@
 package Lama;
+import java.time.LocalDate;
 
 /**
  * This class represents a player in the game.
@@ -7,6 +8,7 @@ package Lama;
 public class Player extends User {
     private Deck deck; // The player's deck of cards
     protected Rocks rocks; // The player's collection of rocks
+    private LocalDate dateofbirth;
 
     /**
      * Constructor for the Player class.
@@ -19,6 +21,12 @@ public class Player extends User {
         this.rocks = new Rocks();
     }
 
+    public Player(String name, LocalDate dateofbirth) {
+        super(name);
+        this.deck = new Deck();
+        this.rocks = new Rocks();
+        this.dateofbirth = dateofbirth;
+    }
     /**
      * Returns a string representation of the player.
      * @return String representation of the player.
