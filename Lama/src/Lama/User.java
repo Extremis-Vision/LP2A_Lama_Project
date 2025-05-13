@@ -1,5 +1,6 @@
 package Lama;
 
+import java.time.LocalDate;
 /**
  * This class represents a user in the game.
  * It includes the user's name and number of wins.
@@ -7,14 +8,16 @@ package Lama;
 public class User {
     public String name; // Name of the user
     public int wins = 0; // Number of wins by the user
+    private LocalDate dateofbirth;
 
     /**
      * Constructor for the User class.
      * Initializes the user's name.
      * @param name The name of the user.
      */
-    public User(String name) {
+    public User(String name, LocalDate dateofbirth) {
         this.name = name;
+        this.dateofbirth = dateofbirth;
     }
 
     /**

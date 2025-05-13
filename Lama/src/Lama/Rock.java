@@ -6,26 +6,22 @@ import java.awt.Color;
  * This class represents a rock in the game.
  * Each rock has a value and a color.
  */
-public class Rock {
-    private int value; // Numerical value of the rock
-    private Color color; // Color of the rock
+public enum Rock {
+    BLACK(10, Color.BLACK),
+    WHITE(1, Color.WHITE);
+
+    private final int value;
+    private final Color color;
 
     /**
-     * Constructor for the Rock class.
-     * Initializes the value and color of the rock based on the color passed as a parameter.
-     * @param color Color of the rock ("black" or "white").
-     * @throws IllegalArgumentException if the color is not "black" or "white".
+     * Constructor for the Rock enum.
+     * Initializes the value and color of the rock.
+     * @param value Numerical value of the rock
+     * @param color Color of the rock
      */
-    public Rock(String color) {
-        if (color.equals("black")) {
-            this.value = 10;
-            this.color = Color.BLACK;
-        } else if (color.equals("white")) {
-            this.value = 1;
-            this.color = Color.WHITE;
-        } else {
-            throw new IllegalArgumentException("Invalid color: " + color);
-        }
+    Rock(int value, Color color) {
+        this.value = value;
+        this.color = color;
     }
 
     /**
@@ -37,14 +33,6 @@ public class Rock {
     }
 
     /**
-     * Sets the value of the rock.
-     * @param value New numerical value of the rock.
-     */
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    /**
      * Gets the color of the rock.
      * @return Color of the rock.
      */
@@ -53,11 +41,17 @@ public class Rock {
     }
 
     /**
-     * Sets the color of the rock.
-     * @param color New color of the rock.
+     * Creates a Rock from a string color value.
+     * @param color Color name ("black" or "white")
+     * @return The corresponding Rock
+     * @throws IllegalArgumentException if the color is invalid
      */
-    public void setColor(Color color) {
-        this.color = color;
+    public static Rock fromString(String color) {
+        return switch (color.toLowerCase()) {
+            case "black" -> BLACK;
+            case "white" -> WHITE;
+            default -> throw new IllegalArgumentException("Couleur invalide : " + color);
+        };
     }
 
     /**
@@ -66,9 +60,6 @@ public class Rock {
      */
     @Override
     public String toString() {
-        return "Rock{" +
-                "value=" + value +
-                ", color=" + color +
-                '}';
+        return String.format("Rock{value=%d, color=%s}", value, color);
     }
 }

@@ -1,6 +1,7 @@
 package Lama;
 import java.time.LocalDate;
 
+import java.time.LocalDate;
 /**
  * This class represents a player in the game.
  * It extends the User class and includes a deck of cards and rocks.
@@ -15,8 +16,8 @@ public class Player extends User {
      * Initializes the player's name, deck, and rocks.
      * @param name The name of the player.
      */
-    public Player(String name) {
-        super(name);
+    public Player(String name, LocalDate dateofbirth) {
+        super(name, dateofbirth);
         this.deck = new Deck();
         this.rocks = new Rocks();
     }
@@ -62,15 +63,36 @@ public class Player extends User {
      * @param score The score to convert to rocks.
      */
     public void addPoints(Rocks_Game game, int score) {
+        int currentWhites = 0;
+        for (Rock rock : rocks.getRocksList()) {
+            if (rock.getValue() == 1) {
+                currentWhites++;
+            }
+        }
+
         int numberWhite = score % 10;
-        int numberBlack = score / 10;
-        for (int whitenumber = 0; whitenumber < numberWhite; whitenumber++) {
+        int totalWhites = currentWhites + numberWhite;
+
+        if (totalWhites >= 10) {
+            for(int i = 0; i < currentWhites; i++) {
+                rocks.getRocks(1);
+            }
+
+            Rock blackRock = game.getRocks(10);
+            if (blackRock != null) {
+                rocks.addRock(blackRock);
+            }
+            numberWhite = totalWhites - 10;
+        }
+
+        for (int i = 0; i < numberWhite; i++) {
             Rock rock = game.getRocks(1);
             if (rock != null) {
                 rocks.addRock(rock);
             }
         }
-        for (int blacknumber = 0; blacknumber < numberBlack; blacknumber++) {
+
+        for (int i = 0; i < score / 10; i++) {
             Rock rock = game.getRocks(10);
             if (rock != null) {
                 rocks.addRock(rock);
@@ -91,6 +113,9 @@ public class Player extends User {
      * @return true if the player has a playable card, false otherwise.
      */
     public boolean hasPlayableCard(Card currentCard) {
+        if (deck.isEmpty()) {
+            return false;
+        }
         for (int i = 0; i < deck.getDeckSize(); i++) {
             Card card = deck.getCard(i);
             if ((card.getValue() >= currentCard.getValue()) ||

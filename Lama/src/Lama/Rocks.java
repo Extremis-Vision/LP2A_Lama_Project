@@ -8,8 +8,8 @@ import java.util.List;
  * It includes methods to manage the rocks and calculate the score.
  */
 public class Rocks {
-    private List<Rock> rocks; // List to store the rocks
-    private int score; // Total score of the rocks
+    private List<Rock> rocks;
+    private int score;
 
     /**
      * Constructor for the Rocks class.
@@ -68,10 +68,13 @@ public class Rocks {
             sb.append(rock).append(", \n");
         }
         if (!rocks.isEmpty()) {
-            // Remove the last comma and space
             sb.setLength(sb.length() - 2);
         }
         sb.append("}");
         return sb.toString();
+    }
+
+    public List<Rock> getRocksList() {
+        return rocks;
     }
 }
