@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    final private ArrayList<Player> players_list; // List of all players in the game
-    private ArrayList<Player> players_game; // List of players currently in the game
-    final private RocksGame game_rocks; // Instance of the Rocks_Game
+    final private ArrayList<Player> playersList; // List of all players in the game
+    private ArrayList<Player> playersInGame; // List of players currently in the game
+    final private RocksGame rocksGame; // Instance of the RocksGame
     final private Logs logs; // Instance of the Logs class
 
     /**
      * Constructor for the Game class.
-     * Initializes the list of players, the Rocks_Game instance, and the Logs instance.
+     * Initializes the list of players, the RocksGame instance, and the Logs instance.
      */
     public Game() {
-        players_list = new ArrayList<>();
-        game_rocks = new RocksGame();
+        playersList = new ArrayList<>();
+        rocksGame = new RocksGame();
         logs = new Logs(); // Initialize the Logs instance
     }
 
@@ -24,7 +24,12 @@ public class Game {
      * @param player The player to add.
      */
     public void addPlayer(Player player) {
-        players_list.add(player);
+        if (playersList.size() < 7) {
+            System.out.println("Player " + player.getName() + " has joined the game.");
+            playersList.add(player);
+        } else {
+            System.out.println("The game is full. Cannot add more players.");
+        }
     }
 
     /**
@@ -39,9 +44,9 @@ public class Game {
 
         while (!gameOver) {
             initializeGame();
-            pointAdding();
+            addPoints();
 
-            for (Player player : players_list) {
+            for (Player player : playersList) {
                 if (player.getRocks().getScore() >= 40) {
                     gameOver = true;
                     if (loser == null || player.getRocks().getScore() > loser.getRocks().getScore()) {
@@ -61,7 +66,7 @@ public class Game {
             gameLogs.add(loserMessage);
 
             // Determine the winner (assuming the player with the lowest score is the winner)
-            for (Player player : players_list) {
+            for (Player player : playersList) {
                 if (player.getRocks().getScore() < winnerScore) {
                     winner = player.getName();
                     winnerScore = player.getRocks().getScore();
@@ -78,41 +83,40 @@ public class Game {
         }
     }
 
-
     /**
      * Initializes the game by setting up the deck and players.
      */
     private void initializeGame() {
-        Stack pioche = new Stack();
+        Stack drawPile = new Stack();
 
-        for (Player player : players_list) {
+        for (Player player : playersList) {
             player.clearDeck();
         }
 
         for (int i = 0; i < 6; i++) {
-            for (Player player : players_list) {
-                if (!pioche.isEmpty()) {
-                    player.getDeck().addCard(pioche.draw());
+            for (Player player : playersList) {
+                if (!drawPile.isEmpty()) {
+                    player.getDeck().addCard(drawPile.draw());
                 }
             }
         }
 
         Deck currentDeck = new Deck();
-        currentDeck.addCard(pioche.draw());
+        currentDeck.addCard(drawPile.draw());
 
-        Scanner sc = new Scanner(System.in);
-        players_game = new ArrayList<>(players_list);
-        players_game.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+        Scanner scanner = new Scanner(System.in);
+        playersInGame = new ArrayList<>(playersList);
+        playersInGame.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
 
         while (!isFinished(currentDeck)) {
-            for (int player_id = 0; player_id < players_game.size(); player_id++) {
-                boolean player_played = false;
-                Player player = players_game.get(player_id);
-                while (!player_played) {
+            for (int playerId = 0; playerId < playersInGame.size(); playerId++) {
+                boolean playerPlayed = false;
+                Player player = playersInGame.get(playerId);
+                while (!playerPlayed) {
 
                     String input;
                     if (player instanceof Bot) {
-                        input = ((Bot) player).chooseAction(currentDeck, pioche);
+                        input = ((Bot) player).chooseAction(currentDeck, drawPile);
                         System.out.println("The bot " + player.getName() + " chose the action: " + input);
                         System.out.println("\n" + player.getName() + ", here is your deck:");
                         System.out.println("Current card played: " + currentDeck.getLastCard());
@@ -122,7 +126,7 @@ public class Game {
                         System.out.println("Current card played: " + currentDeck.getLastCard());
                         System.out.println("Actions: Play card (P), Draw (PC), Quit (Q)");
 
-                        input = sc.nextLine().toUpperCase();
+                        input = scanner.nextLine().toUpperCase();
                     }
 
                     switch (input) {
@@ -132,8 +136,8 @@ public class Game {
                                 index = ((Bot) player).getPlayableCard(currentDeck.getLastCard());
                             } else {
                                 System.out.println("Index of card to play (0 to " + (player.getDeck().getDeckSize() - 1) + "):");
-                                index = sc.nextInt();
-                                sc.nextLine();
+                                index = scanner.nextInt();
+                                scanner.nextLine();
                             }
 
                             if (index >= 0 && index < player.getDeck().getDeckSize()) {
@@ -144,7 +148,7 @@ public class Game {
                                         (selected.getValue() == 6 && currentDeck.getLastCard().getValue() == 10)) {
                                     currentDeck.addCard(selected);
                                     player.getDeck().placeCard(index);
-                                    player_played = true;
+                                    playerPlayed = true;
                                 } else {
                                     System.out.println("Invalid card!");
                                 }
@@ -154,10 +158,10 @@ public class Game {
                             break;
 
                         case "PC":
-                            if (!pioche.isEmpty()) {
-                                player.getDeck().addCard(pioche.draw());
+                            if (!drawPile.isEmpty()) {
+                                player.getDeck().addCard(drawPile.draw());
                                 System.out.println("Card drawn!");
-                                player_played = true;
+                                playerPlayed = true;
                             } else {
                                 System.out.println("The draw pile is empty.");
                             }
@@ -165,9 +169,9 @@ public class Game {
 
                         case "Q":
                             System.out.println(player.getName() + " has left the round.");
-                            players_game.remove(player_id);
-                            player_id--;
-                            player_played = true;
+                            playersInGame.remove(playerId);
+                            playerId--;
+                            playerPlayed = true;
                             break;
 
                         default:
@@ -183,9 +187,9 @@ public class Game {
         }
 
         System.out.println("End of the round.");
-        System.out.println("Number of remaining cards: " + pioche.getDeckSize());
+        System.out.println("Number of remaining cards: " + drawPile.getDeckSize());
 
-        for (Player player : players_list) {
+        for (Player player : playersList) {
             System.out.println("\n" + player.getName() + ", here is your deck:");
             System.out.println(player.getDeck());
         }
@@ -194,10 +198,10 @@ public class Game {
     /**
      * Adds points to the players based on their deck score.
      */
-    private void pointAdding() {
-        for (Player player : players_list) {
+    private void addPoints() {
+        for (Player player : playersList) {
             int score = player.getDeck().getScore();
-            player.addPoints(game_rocks, score);
+            player.addPoints(rocksGame, score);
             System.out.println(player.getName() + " now has " + player.getRocks().getScore());
         }
     }
@@ -208,15 +212,15 @@ public class Game {
      * @return true if the game is finished, false otherwise.
      */
     private boolean isFinished(Deck currentDeck) {
-        boolean player_played = false;
-        if (players_game.isEmpty()) player_played = true;
+        boolean playerPlayed = false;
+        if (playersInGame.isEmpty()) playerPlayed = true;
 
-        for (Player player : players_game) {
+        for (Player player : playersInGame) {
             if (player.hasPlayableCard(currentDeck.getLastCard())) {
-                player_played = false;
+                playerPlayed = false;
             }
         }
 
-        return player_played;
+        return playerPlayed;
     }
 }
