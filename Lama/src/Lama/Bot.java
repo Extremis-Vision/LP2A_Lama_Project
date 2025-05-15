@@ -1,4 +1,5 @@
 package Lama;
+import java.time.LocalDate;
 
 /**
  * This class represents a bot player in the game.
@@ -14,7 +15,7 @@ public class Bot extends Player {
      * @param level Level of the bot.
      */
     public Bot(String name, int level) {
-        super(name, null);
+        super(name, LocalDate.of(1900, 1, 1));
         this.level = level;
     }
 

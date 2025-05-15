@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class User {
     public String name; // Name of the user
     public int wins = 0; // Number of wins by the user
-    final private LocalDate dateofbirth;
+    private LocalDate dateofbirth;
 
     /**
      * Constructor for the User class.
