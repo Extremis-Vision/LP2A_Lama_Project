@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private ArrayList<Player> players_list; // List of all players in the game
+    final private ArrayList<Player> players_list; // List of all players in the game
     private ArrayList<Player> players_game; // List of players currently in the game
-    private RocksGame game_rocks; // Instance of the Rocks_Game
-    private Logs logs; // Instance of the Logs class
+    final private RocksGame game_rocks; // Instance of the Rocks_Game
+    final private Logs logs; // Instance of the Logs class
 
     /**
      * Constructor for the Game class.
@@ -102,6 +102,7 @@ public class Game {
 
         Scanner sc = new Scanner(System.in);
         players_game = new ArrayList<>(players_list);
+        players_game.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
 
         while (!isFinished(currentDeck)) {
             for (int player_id = 0; player_id < players_game.size(); player_id++) {

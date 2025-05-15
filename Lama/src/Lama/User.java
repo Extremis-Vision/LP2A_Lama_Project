@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class User {
     public String name; // Name of the user
     public int wins = 0; // Number of wins by the user
-    private LocalDate dateofbirth;
+    final private LocalDate dateofbirth;
 
     /**
      * Constructor for the User class.
@@ -20,6 +20,14 @@ public class User {
         this.dateofbirth = dateofbirth;
     }
 
+
+    /**
+     * Calcule l'âge de l'utilisateur à partir de sa date de naissance.
+     * @return l'âge de l'utilisateur en années.
+     */
+    public int getAge() {
+        return LocalDate.now().getYear() - dateofbirth.getYear();
+    }
     /**
      * Returns a string representation of the user.
      * @return String representation of the user.

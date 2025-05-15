@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class Player extends User {
     private Deck deck; // The player's deck of cards
     protected Rocks rocks; // The player's collection of rocks
-    private LocalDate dateofbirth;
 
     /**
      * Constructor for the Player class.
